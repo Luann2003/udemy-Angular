@@ -1,0 +1,39 @@
+<h1>Template-driven forms</h1>
+<form>
+    <label>
+        Nome:
+        <input type="text" 
+        name="inputName"
+        #name="ngModel"
+        [ngModel]="name.value"
+        required=""
+        >
+        
+    </label>
+
+    <hr>
+        <p>value: {{ name.value }}</p>
+        <p>value: {{ name.valid }}</p>
+        <p>value: {{ name.dirty }}</p>
+        <p>value: {{ name.touched }}</p>
+    <hr>
+</form>
+
+<form #form="ngForm" (ngSubmit)="submitForm(form)">
+    <select name="selectComidas" #comidas="ngModel" ngModel required="">
+        <option value="" > Selecione um Alimento</option>
+        @for (item of listComidas(); track item) {
+        <option [ngValue]="item"> {{ item.comida }}  </option>
+        }
+    </select>
+
+    <hr>
+    {{ comidas.value?.comida  }}
+    {{ comidas.value?.preco  }}
+    <hr>
+
+    <button [disabled]="!form.valid">Send</button>
+</form>
+
+<p>{{ form.valid }}</p>
+<p>{{ form.value | json}}</p>
